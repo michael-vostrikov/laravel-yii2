@@ -47,6 +47,9 @@ $initYii2Middleware = function ($request, $next)
                 'enablePrettyUrl' => true,
                 'showScriptName' => false,
             ],
+            'view' => [
+                'class' => \App\Yii\Web\View::class,
+            ],
             'formatter' => [
                 'dateFormat' => 'php:m/d/Y',
                 'datetimeFormat' => 'php:m/d/Y H:i:s',
