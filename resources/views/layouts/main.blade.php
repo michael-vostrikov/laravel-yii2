@@ -19,6 +19,32 @@
         <![endif]-->
 
         <style>body { padding-top: 60px; }</style>
+
+        <style>
+            a.asc:after, a.desc:after {
+                position: relative;
+                top: 1px;
+                display: inline-block;
+                font-family: 'Glyphicons Halflings';
+                font-style: normal;
+                font-weight: normal;
+                line-height: 1;
+                padding-left: 5px;
+            }
+
+            a.asc:after {
+                content: "\e113";
+            }
+
+            a.desc:after {
+                content: "\e114";
+            }
+
+            .not-set {
+                color: #aaa;
+                font-style: italic;
+            }
+        </style>
     </head>
     <body>
 
