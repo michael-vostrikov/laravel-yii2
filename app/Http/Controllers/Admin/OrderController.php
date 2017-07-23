@@ -10,10 +10,11 @@ class OrderController extends Controller
 {
     public function index(Request $request)
     {
-        $allModels = Order::query()->get()->all();
+        $query = Order::query();
+
         $gridViewConfig = [
-            'dataProvider' => new \yii\data\ArrayDataProvider([
-                'allModels' => $allModels,
+            'dataProvider' => new \App\Yii\Data\EloquentDataProvider([
+                'query' => $query,
                 'pagination' => ['route' => $request->route()->uri(), 'defaultPageSize' => 10],
                 'sort' => ['route' => $request->route()->uri(), 'attributes' => ['id']],
             ]),
