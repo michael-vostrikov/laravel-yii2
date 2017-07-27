@@ -10,14 +10,18 @@ class OrderController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Order::query();
+        $labels = ['id' => 'ID', 'user.name' => 'User'];
+        $rules = [
+            ['id', 'safe'],
+        ];
+        $filterModel = new \App\Yii\Data\FilterModel($labels, $rules);
+
+        $dataProvider = $filterModel->applyFilter($request);
+        $dataProvider->query = Order::query();
 
         $gridViewConfig = [
-            'dataProvider' => new \App\Yii\Data\EloquentDataProvider([
-                'query' => $query,
-                'pagination' => ['route' => $request->route()->uri(), 'defaultPageSize' => 10],
-                'sort' => ['route' => $request->route()->uri(), 'attributes' => ['id']],
-            ]),
+            'dataProvider' => $dataProvider,
+            'filterModel' => $filterModel,
             'columns' => [
                 'id',
                 'user.name',
