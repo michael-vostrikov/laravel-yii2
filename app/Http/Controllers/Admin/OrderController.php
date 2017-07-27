@@ -10,14 +10,9 @@ class OrderController extends Controller
 {
     public function index(Request $request)
     {
-        $labels = ['id' => 'ID', 'user.name' => 'User'];
-        $rules = [
-            ['id', 'safe'],
-        ];
-        $filterModel = new \App\Yii\Data\FilterModel($labels, $rules);
+        $filterModel = new \App\Forms\Admin\OrderFilter();
 
         $dataProvider = $filterModel->applyFilter($request);
-        $dataProvider->query = Order::query();
 
         $gridViewConfig = [
             'dataProvider' => $dataProvider,
