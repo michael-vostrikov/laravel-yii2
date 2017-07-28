@@ -85,7 +85,7 @@ class OrderController extends Controller
     public function create(Request $request)
     {
         $model = new Order();
-        $formModel = new \App\Yii\Data\FormModel($model, ['user_id' => 'User'], [['user_id', 'safe']]);
+        $formModel = new \App\Forms\Admin\OrderForm($model);
 
         if ($request->isMethod('post')) {
             if ($formModel->load($request->input()) && $formModel->save()) {
@@ -99,7 +99,7 @@ class OrderController extends Controller
     public function update($id, Request $request)
     {
         $model = Order::findOrFail($id);
-        $formModel = new \App\Yii\Data\FormModel($model, ['user_id' => 'User'], [['user_id', 'safe']]);
+        $formModel = new \App\Forms\Admin\OrderForm($model);
 
         if ($request->isMethod('post')) {
             if ($formModel->load($request->input()) && $formModel->save()) {
