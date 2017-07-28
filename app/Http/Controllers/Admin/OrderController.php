@@ -53,9 +53,10 @@ class OrderController extends Controller
     public function view($id)
     {
         $model = Order::findOrFail($id);
+        $formModel = new \App\Forms\Admin\OrderForm($model);
 
         $detailViewConfig = [
-            'model' => $model,
+            'model' => $formModel,
             'attributes' => [
                 'id',
                 'user.name',
@@ -72,10 +73,10 @@ class OrderController extends Controller
             ]),
             'layout' => '{items}{summary}',
             'columns' => [
-                'id',
-                'product.name',
-                'created_at:datetime',
-                'updated_at:datetime',
+                'id:text:ID',
+                'product.name:text:Product',
+                'created_at:datetime:Created At',
+                'updated_at:datetime:Updated At',
             ],
         ];
 
