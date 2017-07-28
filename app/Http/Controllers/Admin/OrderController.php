@@ -82,12 +82,32 @@ class OrderController extends Controller
         return view('admin.order.view', ['model' => $model, 'detailViewConfig' => $detailViewConfig, 'gridViewConfig' => $gridViewConfig]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        $model = new Order();
+        $formModel = new \App\Yii\Data\FormModel($model, ['user_id' => 'User'], [['user_id', 'safe']]);
+
+        if ($request->isMethod('post')) {
+            if ($formModel->load($request->input()) && $formModel->save()) {
+                return redirect()->route('admin.order.view', ['id' => $model->id]);
+            }
+        }
+
+        return view('admin.order.create', ['formModel' => $formModel]);
     }
 
-    public function update()
+    public function update($id, Request $request)
     {
+        $model = Order::findOrFail($id);
+        $formModel = new \App\Yii\Data\FormModel($model, ['user_id' => 'User'], [['user_id', 'safe']]);
+
+        if ($request->isMethod('post')) {
+            if ($formModel->load($request->input()) && $formModel->save()) {
+                return redirect()->route('admin.order.view', ['id' => $model->id]);
+            }
+        }
+
+        return view('admin.order.update', ['formModel' => $formModel]);
     }
 
     public function delete()
