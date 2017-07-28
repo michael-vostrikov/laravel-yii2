@@ -50,8 +50,36 @@ class OrderController extends Controller
         return view('admin.order.index', ['gridViewConfig' => $gridViewConfig]);
     }
 
-    public function view()
+    public function view($id)
     {
+        $model = Order::findOrFail($id);
+
+        $detailViewConfig = [
+            'model' => $model,
+            'attributes' => [
+                'id',
+                'user.name',
+                'created_at:datetime',
+                'updated_at:datetime',
+            ],
+        ];
+
+        $gridViewConfig = [
+            'dataProvider' => new \App\Yii\Data\EloquentDataProvider([
+                'query' => $model->items(),
+                'pagination' => false,
+                'sort' => false,
+            ]),
+            'layout' => '{items}{summary}',
+            'columns' => [
+                'id',
+                'product.name',
+                'created_at:datetime',
+                'updated_at:datetime',
+            ],
+        ];
+
+        return view('admin.order.view', ['model' => $model, 'detailViewConfig' => $detailViewConfig, 'gridViewConfig' => $gridViewConfig]);
     }
 
     public function create()
