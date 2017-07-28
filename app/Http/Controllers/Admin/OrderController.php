@@ -111,7 +111,11 @@ class OrderController extends Controller
         return view('admin.order.update', ['formModel' => $formModel]);
     }
 
-    public function delete()
+    public function delete($id)
     {
+        $model = Order::findOrFail($id);
+        $model->delete();
+
+        return redirect()->route('admin.order.index');
     }
 }
