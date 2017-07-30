@@ -9,7 +9,8 @@ class OrderForm extends FormModel
     public function rules()
     {
         return [
-            ['user_id', 'safe'],
+           [['user_id'], 'required'],
+           [['user_id'], 'integer'],
         ];
     }
 
