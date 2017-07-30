@@ -26,6 +26,15 @@ $initYii2Middleware = function ($request, $next)
         'basePath' => '../',
         'timezone' => 'UTC',
         'components' => [
+            'db' => [
+                'class' => \yii\db\Connection::class,
+                'dsn' => 'mysql:host='.env('DB_HOST', 'localhost')
+                    .';port='.env('DB_PORT', '3306')
+                    .';dbname='.env('DB_DATABASE', 'forge'),
+                'username' => env('DB_USERNAME', 'forge'),
+                'password' => env('DB_PASSWORD', ''),
+                'charset' => 'utf8',
+            ],
             'assetManager' => [
                 'basePath' => '@webroot/yii-assets',
                 'baseUrl' => '@web/yii-assets',
@@ -58,8 +67,13 @@ $initYii2Middleware = function ($request, $next)
             ],
         ],
     ];
+    if (YII_DEBUG) {
+        $config['modules']['gii'] = ['class' => \yii\gii\Module::class];
+        $config['bootstrap'][] = 'gii';
+    }
     (new \yii\web\Application($config));  // initialization is in constructor
     Yii::setAlias('@bower', Yii::getAlias('@vendor') . DIRECTORY_SEPARATOR . 'bower-asset');
+    Yii::setAlias('@App', Yii::getAlias('@app') . DIRECTORY_SEPARATOR . 'App');
 
     return $next($request);
 };
@@ -72,4 +86,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('/order/create', 'OrderController@create');
     Route::post('/order/update/{id}', 'OrderController@update');
     Route::post('/order/delete/{id}', 'OrderController@delete')->name('order.delete');
+
+    Route::any('gii{params?}', function () {
+        $request = \Yii::$app->getRequest();
+        $request->setBaseUrl('/admin');
+        \Yii::$app->run();
+        return null;
+    })->where('params', '(.*)');
 });
