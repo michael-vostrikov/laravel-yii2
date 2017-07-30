@@ -30,20 +30,7 @@ class OrderController extends Controller
                 'created_at:datetime',
                 'updated_at:datetime',
 
-                [
-                    'class' => \yii\grid\ActionColumn::class,
-                    'urlCreator' => function ($action, $model, $key) use ($request) {
-                        $baseRoute = $request->route()->getName();
-
-                        $baseRouteParts = explode('.', $baseRoute);
-                        $baseRouteParts[count($baseRouteParts) - 1] = $action;
-                        $route = implode('.', $baseRouteParts);
-
-                        $params = is_array($key) ? $key : ['id' => (string) $key];
-
-                        return route($route, $params, false);
-                    }
-                ],
+                ['class' => \App\Yii\Widgets\ActionColumn::class],
             ],
         ];
 
