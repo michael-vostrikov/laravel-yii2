@@ -81,7 +81,9 @@ class OrderController extends Controller
             }
         }
 
-        return view('admin.order.create', ['formModel' => $formModel]);
+        $form = new \App\Yii\Widgets\FormBuilder($formModel);
+
+        return view('admin.order.create', ['form' => $form]);
     }
 
     public function update($id, Request $request)
@@ -95,7 +97,9 @@ class OrderController extends Controller
             }
         }
 
-        return view('admin.order.update', ['formModel' => $formModel]);
+        $form = new \App\Yii\Widgets\FormBuilder($formModel);
+
+        return view('admin.order.update', ['form' => $form]);
     }
 
     public function delete($id)

@@ -1,7 +1,7 @@
-<?php $form = \yii\widgets\ActiveForm::begin() ?>
+{!! $form->open() !!}
 
-    {!! $form->field($formModel, 'user_id')->dropDownList(\App\User::pluck('name', 'id'), ['prompt' => '']) !!}
+    {!! $form->field('user_id')->dropDownList(\App\User::pluck('name', 'id'), ['prompt' => '']) !!}
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    {!! $form->submitButton('Submit'); !!}
 
-<?php \yii\widgets\ActiveForm::end() ?>
+{!! $form->close() !!}

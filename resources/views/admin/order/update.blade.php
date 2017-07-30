@@ -4,8 +4,8 @@
 
 @section('content')
 
-    <h1>Update Order: {{ $formModel->id }}</h1>
+    <h1>Update Order: {{ $form->model->id }}</h1>
 
-    @include('admin.order._form', ['formModel' => $formModel])
+    @include('admin.order._form', ['form' => $form])
 
 @endsection

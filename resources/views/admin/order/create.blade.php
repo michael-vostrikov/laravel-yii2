@@ -6,6 +6,6 @@
 
     <h1>Create Order</h1>
 
-    @include('admin.order._form', ['formModel' => $formModel])
+    @include('admin.order._form', ['form' => $form])
 
 @endsection
